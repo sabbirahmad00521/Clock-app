@@ -1,0 +1,2 @@
+1. css section display manually none
+2. time getting minesed after end the countdown

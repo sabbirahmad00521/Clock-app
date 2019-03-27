@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Author name">
+    <meta name="keywords" content="Site keyword">
+    <meta name="description" content="Description about site">
+
+    <!-- Site Title-->
+    <title>Digital Clock</title>
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+
+</head>
+
+<body>
+    <nav>
+        <button class="active" onclick="section_visibility('clock');">Clock</button>
+        <button onclick="section_visibility('analogue');">Analogue</button>
+        <button onclick="section_visibility('countdown');">Countdown</button>
+        <button onclick="section_visibility('stopwatch');">Stopwatch</button>
+        <button onclick="section_visibility('timesince');">Time Since</button>
+        <button onclick="section_visibility('alerm');">Alerm</button>
+        <button onclick="section_visibility('todo');">Todo</button>
+        <button onclick="section_visibility('alerm');">Alerm</button>
+    </nav>
+
+
+    <!--digital clock-->
+
+    <div id="clock">
+        <div id="dateToday"></div>
+        <div id="timeToday"></div>
+    </div>
+
+
+    <!--analogue clock-->
+    <div id="analogue">
+        <div class="outer-clock-face">
+            <div class="marking marking-one"></div>
+            <div class="marking marking-two"></div>
+            <div class="marking marking-three"></div>
+            <div class="marking marking-four"></div>
+            <div class="inner-clock-face">
+                <div class="hand hour-hand"></div>
+                <div class="hand min-hand"></div>
+                <div class="hand second-hand"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Countdown Clock-->
+    <div id="countdown">
+        <div class="preset-timer">
+            <button data-minute="5">Short Break</button>
+            <button data-minute="25">Pomodoro</button>
+            <button data-minute="35">Break</button>
+            <button data-minute="45">Social </button>
+            <button data-minute="120">Working Hour</button>
+        </div>
+        <div class="countdown-area">
+            <div class="countdown-remain"></div>
+            <div class="countdown-length"></div>
+            <div class="countdown-start"></div>
+            <div class="countdown-end"></div>
+            <div class="countdown-btn">
+                <i class="fas fa-redo"></i>
+                <i class="far fa-pause-circle"></i>
+                <i class="far fa-stop-circle"></i>
+                <i class="fas fa-volume-up"></i>
+            </div>
+        </div>
+        <audio class="alarm-tone" src="assets/aleamtone.mp3"></audio>
+    </div>
+
+
+
+
+    <div class="stopwatch"></div>
+    <div class="analogue_clock"></div>
+
+    <script src="assets/js/scripts.js"></script>
+</body></html>
