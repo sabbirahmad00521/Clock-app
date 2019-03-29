@@ -116,6 +116,7 @@ function showDate() {
 }
 showDate()
 
+
 //Analogue CLOCK
 //==============
 
@@ -143,9 +144,8 @@ setInterval(analogueClock, 1000);
 analogueClock()
 
 
-
-//Active class add
-//================
+//Active class add in bottom nav
+//==============================
 
 
 var nav = document.querySelector("nav");
@@ -198,8 +198,11 @@ const displayCountdownLength = document.querySelector('.countdown-length');
 const displayCountdownEnd = document.querySelector('.countdown-end');
 const alarmTone = document.querySelector('.alarm-tone');
 const presetButtonData = document.querySelectorAll('.preset-timer [data-minute]');
+var fill = document.querySelector('.fill');
+var volume = document.querySelector('.countdown-btn .mute');
 
 
+//this function is the main function of countdown
 function countdownTimer(seconds) {
     clearInterval(countdownTime);
     alarmTone.pause();
@@ -213,16 +216,17 @@ function countdownTimer(seconds) {
     countdownTime = setInterval(() => { // here needs a function. because if we call countdown time once per second, then present and value will be increased. so it won't work properly. so need a function.
         var timeLeft = Math.round((totalTime - Date.now()) / 1000);
         countdownRemain(timeLeft)
-
+        barPercentage(seconds, timeLeft)
         if (timeLeft == 0) {
             clearInterval(countdownTime);
-            alarmTone.play()
+            alarmTone.play();
             alarmTone.loop = true;
             return;
         }
     }, 1000)
 }
 
+//remaining time, main countdown shower
 function countdownRemain(seconds) {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
@@ -234,15 +238,17 @@ function countdownRemain(seconds) {
     const remainDisplay = `${hours < 10 ? '0' : ''}${hours} : ${remainingMinutes < 10 ? '0' : ''}${remainingMinutes} : ${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     document.title = remainDisplay;
     displayCountdownRemain.innerHTML = '<div id="days"><h2>' + `${days < 10 ? '0' : ''}${days} ` + '</h2><span>Days</span> </div><div><h2>' + `${remaininghours < 10 ? '0' : ''}${remaininghours} ` + '</h2><span>Hours</span> </div><div><h2>' + `${remainingMinutes < 10 ? '0' : ''}${remainingMinutes}` + '</h2><span>Minutes</span></div><div><h2>' + `${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}` + '</h2><span>Second</span></div>';
-    
+
+
     if (hours < 24) {
         var daysss = document.getElementById('days');
         daysss.style.display = "none";
+        fill.style.width = "100%"; // i don't know how
     }
 
 }
- 
 
+//countdown length
 function countdownLength(seconds) {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
@@ -254,11 +260,14 @@ function countdownLength(seconds) {
         hoursMinute = "Minute";
     } else if (minutes > 60) {
         hoursMinute = "Hours";
+    } else if (minutes < 1) {
+        hoursMinute = "Second";
     }
 
     displayCountdownLength.textContent = `Countdown for ${hours < 10 ? '0' : ''}${hours} : ${remainingMinutes < 10 ? '0' : ''}${remainingMinutes} ${hoursMinute}`;
 }
 
+// coountdown starting time shower
 function countdownstart(startTime) {
     const countdownStartTime = new Date(startTime);
     let hours = countdownStartTime.getHours();
@@ -279,6 +288,7 @@ function countdownstart(startTime) {
     displayCountdownStart.textContent = `Time has been starting ${hours} : ${minutes} : ${dayNight}`
 }
 
+//when countdown will end
 function countdownEnd(totalSecond) {
     const endTime = new Date(totalSecond);
     let hours = endTime.getHours();
@@ -299,24 +309,61 @@ function countdownEnd(totalSecond) {
     displayCountdownEnd.textContent = `Be back at ${hours} : ${minutes} : ${dayNight}`
 }
 
-
+//preset buttons and timer
 function presetTimer() {
     document.querySelectorAll('.preset-timer button').forEach(singleButton => singleButton.classList.remove('active'));
     const minute = parseInt((this.dataset.minute) * 60);
     countdownTimer(minute);
     this.classList.add('active')
 }
-
 presetButtonData.forEach(sinlgepresetButton => sinlgepresetButton.addEventListener('click', presetTimer))
 
-countdownTimer(300000)
+
+//bar percentage shower
+function barPercentage(second, timeLeft) {
+    const barWidth = document.querySelector('.percentage-bar').clientWidth;
+    var fillWidth = timeLeft * barWidth / second;
+    fill.style.width = fillWidth + "px";
+}
+
+//alerm mute and unmute
+function alermVolume() {
+    if (alarmTone.volume == 1) {
+        alarmTone.volume = 0;
+        volume.classList.replace('fa-volume-up', 'fa-volume-mute');
+    } else {
+        alarmTone.volume = 1;
+        volume.classList.replace('fa-volume-mute', 'fa-volume-up');
+    }
+}
+volume.addEventListener('click', alermVolume)
+
+
+// custom panner open and close
+
+const customCountdownOpener = document.querySelector('.custom-countdown .custom-open-close')
+const customCountdownPanel = document.querySelector('.custom-countdown')
+const overlay = document.querySelector('.overlay')
+
+function customCountdown() {
+    var qwew = customCountdownPanel.offsetWidth;
+    console.log(qwew)
+    if (customCountdownPanel.classList.contains('panel-open')) {
+        overlay.classList.remove('active');
+        customCountdownPanel.classList.remove('panel-open');
+        customCountdownOpener.classList.replace('fa-times', 'fa-stopwatch')
+    } else {
+        overlay.classList.add('active');
+        customCountdownPanel.classList.add('panel-open');
+        customCountdownOpener.classList.replace('fa-stopwatch', 'fa-times')
+    }
+    overlay.addEventListener('click', () => {
+        overlay.classList.remove('active');
+        customCountdownPanel.classList.remove('panel-open');
+    })
+}
+customCountdownOpener.addEventListener('click', customCountdown)
 
 
 
-
-
-
-
-
-
-
+countdownTimer(31212)
