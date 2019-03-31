@@ -73,19 +73,37 @@
             <button data-minute="1800">days</button>
         </div>
         <div class="custom-countdown">
-            <i class="fas custom-open-close fa-stopwatch"></i>
-            <div class="custom-countdown-input-area">
-                <h4>Custom Countdown</h4>
-                <form action="">
+            <i class="custom-time-open-close fas fa-stopwatch"></i>
+            <i class="custom-date-open-close fas fa-calendar-day"></i>
+            <div class="countdown-time-input">
+                <h4>Custom Time Countdown</h4>
+                <form action="" name="customCountdown" autocomplete="off">
                     <div class="custom-countdown-title">
                         <label for="custom-countdown-title">Countdown Title</label>
-                        <input type="text" placeholder="Input Countdown Title Here" name="custom-countdown-title" id="custom-countdown-title">
+                        <input type="text" placeholder="Input Countdown Title Here" name="customTitle" id="custom-countdown-title">
                     </div>
                     <h6>Set Countdown Timer</h6>
                     <div class="custom-countdown-time">
-                        <input min="0" type="number" placeholder="Days">
-                        <input min="0" type="number" placeholder="Hours">
-                        <input min="0" type="number" placeholder="Minute">
+                        <input min="0" type="number" placeholder="Days" id="customDays">
+                        <input min="0" type="number" placeholder="Hours" id="customHours">
+                        <input min="0" type="number" placeholder="Minute" id="customMinutes">
+                    </div>
+                    <input type="submit" value="Start Countdown">
+                </form>
+
+            </div>
+            <div class="countdown-date-input">
+                <h4>Custom Date Countdown</h4>
+                <form action="" name="customdateCountdown" autocomplete="off">
+                    <div class="custom-countdown-title">
+                        <label for="custom-countdown-title">Countdown Title</label>
+                        <input type="text" placeholder="Input Countdown Title Here" name="customTitle" id="custom-countdown-title">
+                    </div>
+                    <h6>Set Countdown Date</h6>
+                    <div class="custom-countdown-time">
+                        <input type="date" id="countdownDate">
+                        <h6>Set Countdown Time</h6>
+                        <input type="time" id="countdownTime" required>
                     </div>
                     <input type="submit" value="Start Countdown">
                 </form>
@@ -94,20 +112,33 @@
         </div>
 
         <div class="countdown-area">
-            <div class="countdown-remain"></div>
+            <h2 class="countdown-title"></h2>
+            <div class="countdown-remain">
+                <div id="days" style="display: none;">
+                    <h2>00 </h2><span>Days</span>
+                </div>
+                <div>
+                    <h2>00 </h2><span>Hours</span>
+                </div>
+                <div>
+                    <h2>00</h2><span>Minutes</span>
+                </div>
+                <div>
+                    <h2>00</h2><span>Second</span>
+                </div>
+            </div>
             <div class="percentage-bar">
                 <div class="fill"></div>
             </div>
             <div class="countdown-length"></div>
             <div class="countdown-start"></div>
             <div class="countdown-end"></div>
-            <div class="countdown-btn">
-                <i class="fas fa-redo">redo</i>
-                <i class="far fa-pause-circle">pause</i>
-                <i class="far fa-stop-circle">stop</i>
-                <i class="fas mute fa-volume-up">volume</i>
-            </div>
         </div>
+            <div class="countdown-btn">
+                <i class="fas reload fa-redo"></i>
+                <i class="far stop fa-stop-circle"></i>
+                <i class="fas mute fa-volume-up"></i>
+            </div>
         <audio class="alarm-tone" src="assets/aleamtone.mp3"></audio>
 
     </div>

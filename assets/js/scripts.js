@@ -200,10 +200,15 @@ const alarmTone = document.querySelector('.alarm-tone');
 const presetButtonData = document.querySelectorAll('.preset-timer [data-minute]');
 var fill = document.querySelector('.fill');
 var volume = document.querySelector('.countdown-btn .mute');
+var reloadCountdownbtn = document.querySelector('.countdown-btn .reload');
+var stopCountdownbtn = document.querySelector('.countdown-btn .stop');
+var countdownSecond;
+
 
 
 //this function is the main function of countdown
 function countdownTimer(seconds) {
+    countdownSecond = seconds;
     clearInterval(countdownTime);
     alarmTone.pause();
     const nowTime = Date.now();
@@ -233,7 +238,7 @@ function countdownRemain(seconds) {
     const days = Math.floor(hours / 24);
     const remainingSeconds = Math.floor(seconds % 60);
     const remainingMinutes = Math.floor(minutes % 60);
-    const remaininghours = Math.floor(hours % 60);
+    const remaininghours = Math.floor(hours % 24);
 
     const remainDisplay = `${hours < 10 ? '0' : ''}${hours} : ${remainingMinutes < 10 ? '0' : ''}${remainingMinutes} : ${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     document.title = remainDisplay;
@@ -310,8 +315,10 @@ function countdownEnd(totalSecond) {
 }
 
 //preset buttons and timer
+const presetButton = document.querySelectorAll('.preset-timer button')
+
 function presetTimer() {
-    document.querySelectorAll('.preset-timer button').forEach(singleButton => singleButton.classList.remove('active'));
+    presetButton.forEach(singleButton => singleButton.classList.remove('active'));
     const minute = parseInt((this.dataset.minute) * 60);
     countdownTimer(minute);
     this.classList.add('active')
@@ -338,32 +345,162 @@ function alermVolume() {
 }
 volume.addEventListener('click', alermVolume)
 
-
-// custom panner open and close
-
-const customCountdownOpener = document.querySelector('.custom-countdown .custom-open-close')
-const customCountdownPanel = document.querySelector('.custom-countdown')
-const overlay = document.querySelector('.overlay')
-
-function customCountdown() {
-    var qwew = customCountdownPanel.offsetWidth;
-    console.log(qwew)
-    if (customCountdownPanel.classList.contains('panel-open')) {
-        overlay.classList.remove('active');
-        customCountdownPanel.classList.remove('panel-open');
-        customCountdownOpener.classList.replace('fa-times', 'fa-stopwatch')
-    } else {
-        overlay.classList.add('active');
-        customCountdownPanel.classList.add('panel-open');
-        customCountdownOpener.classList.replace('fa-stopwatch', 'fa-times')
-    }
-    overlay.addEventListener('click', () => {
-        overlay.classList.remove('active');
-        customCountdownPanel.classList.remove('panel-open');
-    })
+// restart stopwatch
+function reloadCountdown() {
+    countdownTimer(countdownSecond)
 }
-customCountdownOpener.addEventListener('click', customCountdown)
+reloadCountdownbtn.addEventListener('click', reloadCountdown)
+
+
+// restart stopwatch
+function stopCountdown() {
+    clearInterval(countdownTime)
+    document.title = '00:00:00';
+    displayCountdownRemain.innerHTML = '<div><h2>' + '00' + '</h2><span>Hours</span> </div><div><h2>' + '00' + '</h2><span>Minutes</span></div><div><h2>' + '00' + '</h2><span>Second</span></div>';
+    displayCountdownLength.textContent = ``;
+    displayCountdownStart.textContent = '';
+    displayCountdownEnd.textContent = '';
+    fill.style.width = "100%";
+    presetButton.forEach(singleButton => singleButton.classList.remove('active'));
+    customCountdownButton.forEach(singleButton => singleButton.classList.remove('active'));
+}
+stopCountdownbtn.addEventListener('click', stopCountdown)
 
 
 
-countdownTimer(31212)
+// custom pannel open and close
+
+const timeCountdownOpener = document.querySelector('.custom-countdown .custom-time-open-close');
+const dateCountdownOpener = document.querySelector('.custom-countdown .custom-date-open-close');
+const customTime = document.querySelector('.countdown-time-input');
+const customDate = document.querySelector('.countdown-date-input');
+const overlay = document.querySelector('.overlay');
+const customCountdownPanel = document.querySelector('.custom-countdown');
+const customCountdownTitle = document.querySelector('.countdown-title');
+const customCountdownButton = document.querySelectorAll('.custom-countdown i');
+
+timeCountdownOpener.addEventListener('click', function () {
+    overlay.classList.add('active');
+    customCountdownPanel.classList.add('panel-open');
+    customDate.classList.remove('opacity-visibility');
+    customTime.classList.add('opacity-visibility');
+
+})
+
+dateCountdownOpener.addEventListener('click', function () {
+    overlay.classList.add('active');
+    customCountdownPanel.classList.add('panel-open');
+    customDate.classList.add('opacity-visibility');
+    customTime.classList.remove('opacity-visibility');
+})
+
+overlay.addEventListener('click', () => {
+    overlay.classList.remove('active');
+    customCountdownPanel.classList.remove('panel-open');
+    customCountdownButton.forEach(singleButton => singleButton.classList.remove('active'));
+})
+
+// custom countdown button opener active color change
+function customCountdownbutton() {
+    customCountdownButton.forEach(singleButton => singleButton.classList.remove('active'));
+    this.classList.add('active')
+}
+customCountdownButton.forEach(singleCustombutton => singleCustombutton.addEventListener('click', customCountdownbutton))
+
+
+//calender min value today
+function calenderMinToday() {
+    let today = new Date(),
+        day = today.getDate(),
+        month = today.getMonth() + 1, //January is 0
+        year = today.getFullYear();
+    if (day < 10) {
+        day = '0' + day
+    }
+    if (month < 10) {
+        month = '0' + month
+    }
+    today = year + '-' + month + '-' + day;
+
+    document.getElementById("countdownDate").setAttribute("min", today);
+    //    document.getElementById("countdownDate").setAttribute("value", today);
+}
+calenderMinToday()
+
+//custom pannel time function
+
+
+document.customCountdown.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const day = this.customDays.value;
+    const hour = this.customHours.value;
+    const minute = this.customMinutes.value;
+    const title = this.customTitle.value;
+    const dayToSecond = ((day * 24) * 60) * 60;
+    const hoursToSecond = (hour * 60) * 60;
+    const minuteToSecond = minute * 60;
+    const totalSecond = dayToSecond + hoursToSecond + minuteToSecond;
+    if (totalSecond > 0) {
+        countdownTimer(totalSecond)
+        overlay.classList.remove('active');
+        customCountdownPanel.classList.remove('panel-open');
+        customCountdownTitle.textContent = title;
+        presetButton.forEach(singleButton => singleButton.classList.remove('active'));
+    }
+
+    this.reset();
+})
+
+//custom pannel date function
+
+document.customdateCountdown.addEventListener('submit', function (e) {
+
+    e.preventDefault();
+    const selectedDate = this.countdownDate.value;
+    const selectedTime = this.countdownTime.value;
+    const title = this.customTitle.value;
+
+    const selectedDateConvert = new Date(selectedDate); // selected date (Sun Mar 31 2019 06:00:00 GMT+0600)
+    const selectedTimeSplit = selectedTime.split(':')
+    const selectedTimeInSecond = (((selectedTimeSplit[0]) * 60 * 60) + ((selectedTimeSplit[1]) * 60)); // selected time in second from 12:00am of day
+
+    const todayDateAndTime = new Date(); // present date (Sun Mar 31 2019 08:10:00 GMT+0600)
+    const runningTime = (todayDateAndTime.getHours() * 60 * 60) + (todayDateAndTime.getMinutes() * 60); // selected time in second from 12:00am on today
+
+    const sixHoursMinus = 6 * 60 * 60 * 1000;
+    const msBetweenDates = (((selectedDateConvert - sixHoursMinus) - (todayDateAndTime)) / 1000) + selectedTimeInSecond; // selected time - countdown time in second
+
+    var selecteddatejust = selectedDateConvert.getMonth() + ' ' + selectedDateConvert.getDate() + ' ' + selectedDateConvert.getFullYear(); //dd mm yyyy of selected date
+    var todayeddatejust = todayDateAndTime.getMonth() + ' ' + todayDateAndTime.getDate() + ' ' + todayDateAndTime.getFullYear(); //dd mm yyyy of present date
+
+    if (selecteddatejust == todayeddatejust && selectedTimeInSecond > runningTime) {
+        countdownTimer(msBetweenDates)
+    } else if (selecteddatejust > todayeddatejust) {
+        countdownTimer(msBetweenDates)
+    }
+
+    if (msBetweenDates > 0) {
+        countdownTimer(msBetweenDates)
+        overlay.classList.remove('active');
+        customCountdownPanel.classList.remove('panel-open');
+        customCountdownTitle.textContent = title;
+        presetButton.forEach(singleButton => singleButton.classList.remove('active'));
+    }
+
+    customCountdownTitle.textContent = title;
+    this.reset();
+})
+
+
+
+
+
+//code running
+
+
+
+
+
+
+
+//countdownTimer(10000)
