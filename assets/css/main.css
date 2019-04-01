@@ -272,10 +272,14 @@ nav button.active {
 
 .countdown-remain {
     margin-bottom: 20px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
 }
 
 .countdown-remain > div {
-    display: inline-block;
     margin: 5px 1px;
     width: 180px;
     text-align: center;
@@ -283,13 +287,20 @@ nav button.active {
 
 .countdown-remain h2 {
     padding: 30px 10px;
-    background-color: #FB3D57;
+
     font-weight: 300;
     margin-bottom: 2px;
     font-family: 'Lato', sans-serif;
     font-weight: 100;
+    background-color: #199EBF;
+
     font-size: 100px;
     text-shadow: 0px 0px 3px #fff;
+}
+
+.countdown-remain #days h2,
+.countdown-remain #days span {
+    background-color: #FB3D57;
 }
 
 .countdown-remain div:nth-child(2) h2,
@@ -297,15 +308,13 @@ nav button.active {
 .countdown-remain div:nth-child(3) h2,
 .countdown-remain div:nth-child(3) span,
 .countdown-remain div:nth-child(4) h2,
-.countdown-remain div:nth-child(4) span {
-    background-color: #199EBF;
-}
+.countdown-remain div:nth-child(4) span {}
 
 .countdown-remain span {
     display: block;
     font-size: 22px;
+    background-color: #199EBF;
     padding: 5px 0;
-    background-color: #FB3D57;
     box-shadow: inset 0px 15px 55px rgba(0, 0, 0, 0.6);
     text-transform: uppercase;
     text-shadow: 0px 0px 3px #73c3ff;
@@ -549,4 +558,96 @@ h2.countdown-title {
 
 .countdown-date-input .custom-countdown-time input {
     width: 100%;
+}
+
+
+/*stopwatch*/
+
+
+#stopwatch {
+    height: calc(100% - 60px);
+    display: none;
+}
+
+.stopwatch-display {
+    font-size: 100px;
+    color: #fff;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.stopwatch-display > span {
+    position: relative;
+    text-transform: capitalize;
+    margin-right: 25px;
+
+}
+
+.stopwatch-display > span:last-child {
+    margin-right: 0;
+}
+
+.stopwatch-display > span:nth-child(1):after,
+.stopwatch-display > span:nth-child(2):after {
+    content: ':';
+    position: absolute;
+    right: -23px;
+    bottom: 5px;
+}
+
+
+.stopwatch-display > span:nth-child(1):before {
+    content: 'hour';
+}
+
+.stopwatch-display > span:nth-child(2):before {
+    content: 'minute';
+}
+
+.stopwatch-display > span:nth-child(3):before {
+    content: 'second';
+
+}
+
+.stopwatch-display > span:nth-child(1):before,
+.stopwatch-display > span:nth-child(2):before,
+.stopwatch-display > span:nth-child(3):before {
+    position: absolute;
+    font-size: 20px;
+    right: 5px;
+    top: 10px;
+    opacity: .4;
+}
+
+.stopwatch-display > span span {
+    font-size: 40px;
+    position: absolute;
+    bottom: 18px;
+    right: -51px;
+}
+
+.stopwatch-btn {
+    position: absolute;
+    font-size: 30px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.stopwatch-btn > div {
+    display: inline-block;
+    padding: 15px;
+    cursor: pointer;
+    transition: .4s;
+    opacity: .9;
+    color: #fff;
+    text-align: center;
+}
+
+.stopwatch-btn div:hover {
+    opacity: 1;
+    text-shadow: 0px 0px 15px #73c3ff;
 }

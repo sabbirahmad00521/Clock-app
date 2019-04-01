@@ -1,4 +1,3 @@
 bar percentage 
 bar 180 deg
-pause
-stop
+secion display manually none

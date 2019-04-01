@@ -347,7 +347,10 @@ volume.addEventListener('click', alermVolume)
 
 // restart stopwatch
 function reloadCountdown() {
-    countdownTimer(countdownSecond)
+    if (countdownSecond > 0) {
+        countdownTimer(countdownSecond)
+    }
+
 }
 reloadCountdownbtn.addEventListener('click', reloadCountdown)
 
@@ -492,15 +495,75 @@ document.customdateCountdown.addEventListener('submit', function (e) {
 })
 
 
+//Stopwatch code
+
+var stopwatchDisplay = document.querySelector('.stopwatch-display')
+var stopwatchStart = document.querySelector('.stopwatch-start')
+var stopwatchResetBtn = document.querySelector('.stopwatch-restart')
+var stopwatchStartToggle = document.querySelector('.stopwatch-btn .textToggle')
+var stopwatchMilisecond = 0;
+var stopwatchsecond = 0;
+var stopwatchminute = 0;
+var stopwatchhour = 0;
+let interval = null;
+let status = "stopped";
+
+
+function stopwatch() {
+
+
+    stopwatchMilisecond++;
+    if (stopwatchMilisecond == 100) {
+        stopwatchMilisecond = 0;
+        stopwatchsecond++;
+
+    }
+    if (stopwatchsecond == 60) {
+        stopwatchsecond = 0;
+        stopwatchminute++;
+
+    }
+    if (stopwatchminute == 60) {
+        stopwatchminute = 0;
+        stopwatchhour++;
+
+    }
+    stopwatchDisplay.innerHTML = `<span> ${stopwatchhour < 10 ? '0' : ''}${stopwatchhour} </span><span> ${stopwatchminute < 10 ? '0' : ''}${stopwatchminute} </span><span>${stopwatchsecond < 10 ? '0' : ''}${stopwatchsecond}<span>${stopwatchMilisecond < 10 ? '0' : ''}${stopwatchMilisecond} </span> </span> `;
+
+}
 
 
 
-//code running
+function startStop() {
 
+    if (status === "stopped") {
 
+        interval = window.setInterval(stopwatch, 10);
+        stopwatchStart.classList.replace('fa-play-circle', 'fa-pause-circle')
+        stopwatchStartToggle.innerHTML = 'Pause'
+        status = "started";
 
+    } else {
 
+        window.clearInterval(interval);
+        stopwatchStart.classList.replace('fa-pause-circle', 'fa-play-circle')
+        stopwatchStartToggle.innerHTML = 'Start'
+        status = "stopped";
 
+    }
 
+}
 
-//countdownTimer(10000)
+function stopwatchReset() {
+    window.clearInterval(interval);
+    stopwatchsecond = 0;
+    stopwatchminute = 0;
+    stopwatchhour = 0;
+    stopwatchDisplay.innerHTML = `<span> 00</span><span>00</span><span>00 </span>`;
+    stopwatchStart.classList.replace('fa-pause-circle', 'fa-play-circle');
+    stopwatchStartToggle.innerHTML = 'Start'
+    status = "stopped";
+}
+
+stopwatchStart.addEventListener('click', startStop);
+stopwatchResetBtn.addEventListener('click', stopwatchReset);
