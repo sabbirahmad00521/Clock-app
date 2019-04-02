@@ -101,7 +101,7 @@ nav button.active {
     top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    display: none;
+    display: block;
 }
 
 #dateToday {
@@ -655,7 +655,7 @@ h2.countdown-title {
 /*Time Since*/
 
 #dateCalculator {
-    display: block;
+    display: none;
     color: #fff;
 }
 

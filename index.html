@@ -27,12 +27,11 @@
     <div class="overlay"></div>
 
     <nav>
-        <button onclick="section_visibility('clock');">Clock</button>
+        <button class="active" onclick="section_visibility('clock');">Clock</button>
         <button onclick="section_visibility('analogue');">Analogue</button>
-        <button onclick="section_visibility('countdown');">Countdown</button>
+        <button onclick="section_visibility('countdown');">Countdown & Alarm</button>
         <button onclick="section_visibility('stopwatch');">Stopwatch</button>
-        <button class="active" onclick="section_visibility('dateCalculator');">Date Calculator</button>
-        <button onclick="section_visibility('alerm');">Alerm</button>
+        <button onclick="section_visibility('dateCalculator');">Date Calculator</button>
         <button onclick="section_visibility('todo');">Todo</button>
         <button onclick="section_visibility('scedule');">Scedule</button>
     </nav>
@@ -167,12 +166,12 @@
             <p>How many days, months, and <br> years are there between two dates?</p>
             <form action="" name="dateCalculator" autocomplete="off">
                 <h5>Start Date</h5>
-                <input type="date" id="fromDate"  value="2000-05-21">
+                <input type="date" id="fromDate">
                 <h5>End date</h5>
-                <input type="date" id="toDate"  value="2019-04-02">
+                <input type="date" id="toDate">
                 <input type="submit" id="submitDate" value="Calculation Duration">
             </form>
-            
+
         </div>
         <div class="date-analysis">
             <div class="dates"></div>
