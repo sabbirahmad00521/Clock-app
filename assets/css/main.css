@@ -71,8 +71,8 @@ nav {
 nav button {
     border: 0;
     background-color: rgba(123, 123, 123, 0.2);
-    font-size: 26px;
-    padding: 12px;
+    font-size: 20px;
+    padding: 10px 12px;
     text-align: center;
     width: 100%;
     border-right: 3px solid #0C2132;
@@ -101,7 +101,7 @@ nav button.active {
     top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    display: block;
+    display: none;
 }
 
 #dateToday {
@@ -414,8 +414,8 @@ nav button.active {
     left: 100%;
     padding: 29px;
     background-color: #eee;
-    height: calc(100% - 107px);
-    z-index: 2;
+    height: calc(100% - 96px);
+    z-index: 101;
     transition: 1s;
     width: 300px;
 }
@@ -529,7 +529,7 @@ h2.countdown-title {
     height: 100vh;
     width: 100vw;
     background-color: #000;
-    z-index: 1;
+    z-index: 100;
     left: 0;
     top: 0;
     opacity: 0;
@@ -650,4 +650,110 @@ h2.countdown-title {
 .stopwatch-btn div:hover {
     opacity: 1;
     text-shadow: 0px 0px 15px #73c3ff;
+}
+
+/*Time Since*/
+
+#dateCalculator {
+    display: block;
+    color: #fff;
+}
+
+.date-input {
+    color: #eee;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: calc(100% - 48px);
+    background: rgba(0, 0, 0, .2);
+    padding: 50px 30px;
+}
+
+.date-input h2 {
+    margin-bottom: 10px;
+}
+
+.date-input p {
+    margin: 0;
+}
+
+.date-input h5 {
+    font-size: 15px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+
+.date-input input[type="date"] {
+    border: 0;
+    padding: 8px;
+    padding-left: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Bree Serif', serif;
+    text-transform: uppercase;
+    display: block;
+    width: 100%;
+}
+
+
+
+.date-input input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 35px;
+    border: 0;
+    background: #199EBF;
+    color: #fff;
+    font-family: 'Bree Serif', serif;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+
+.date-analysis {
+    font-size: 16px;
+    margin-left: 345px;
+    margin-top: 40px;
+}
+
+.starting-date,
+.ending-date {
+    font-size: 32px;
+}
+
+.dates {
+    text-align: center;
+}
+
+.dates .to {
+    font-size: 22px;
+    line-height: 25px;
+    margin-top: 4px;
+}
+
+.units {
+    margin: auto;
+    display: table;
+    margin-top: 30px;
+}
+
+.date-analysis div.units div {
+    position: relative;
+    display: table;
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+.date-analysis div.units div:after {
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    height: 6px;
+    width: 6px;
+    content: '';
+    background: #fff;
+    transform: translate(0, -50%);
 }

@@ -27,11 +27,11 @@
     <div class="overlay"></div>
 
     <nav>
-        <button class="active" onclick="section_visibility('clock');">Clock</button>
+        <button onclick="section_visibility('clock');">Clock</button>
         <button onclick="section_visibility('analogue');">Analogue</button>
         <button onclick="section_visibility('countdown');">Countdown</button>
         <button onclick="section_visibility('stopwatch');">Stopwatch</button>
-        <button onclick="section_visibility('timesince');">Time Since</button>
+        <button class="active" onclick="section_visibility('dateCalculator');">Date Calculator</button>
         <button onclick="section_visibility('alerm');">Alerm</button>
         <button onclick="section_visibility('todo');">Todo</button>
         <button onclick="section_visibility('scedule');">Scedule</button>
@@ -145,7 +145,7 @@
 
 
 
-<!--Stopwatch-->
+    <!--Stopwatch-->
     <div id="stopwatch">
         <div class="stopwatch-display">
             <span>00</span>
@@ -160,12 +160,28 @@
     </div>
 
 
-    <script>
-
-    </script>
-
-
+    <!--Time Since-->
+    <div id="dateCalculator">
+        <div class="date-input">
+            <h2>Date Calculator</h2>
+            <p>How many days, months, and <br> years are there between two dates?</p>
+            <form action="" name="dateCalculator" autocomplete="off">
+                <h5>Start Date</h5>
+                <input type="date" id="fromDate"  value="2000-05-21">
+                <h5>End date</h5>
+                <input type="date" id="toDate"  value="2019-04-02">
+                <input type="submit" id="submitDate" value="Calculation Duration">
+            </form>
+            
+        </div>
+        <div class="date-analysis">
+            <div class="dates"></div>
+            <div class="units"></div>
+        </div>
+    </div>
 
 
     <script src="assets/js/scripts.js"></script>
-</body></html>
+</body>
+
+</html>

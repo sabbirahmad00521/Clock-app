@@ -567,3 +567,212 @@ function stopwatchReset() {
 
 stopwatchStart.addEventListener('click', startStop);
 stopwatchResetBtn.addEventListener('click', stopwatchReset);
+
+
+// date calculator 
+
+var units = document.querySelector('.date-analysis .units');
+var dates = document.querySelector('.date-analysis .dates');
+
+document.dateCalculator.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const startDate = new Date(this.fromDate.value)
+    const endDate = new Date(this.toDate.value);
+
+    let dateMinus;
+    if (startDate > endDate) {
+        dateMinus = startDate - endDate;
+    } else if (startDate < endDate) {
+        dateMinus = endDate - startDate;
+    } else {
+        dateMinus = 0;
+    }
+
+    bothDate(startDate, endDate)
+    dateCounter(dateMinus, startDate, endDate)
+
+    this.reset()
+})
+
+
+function dateCounter(timeInMS, startDate, endDate) {
+    var startDate = new Date(startDate);
+    var startDateOfMonth = startDate.getDate()
+    var endDate = new Date(endDate);
+    var endDateOfMonth = endDate.getDate()
+
+    //get last day of a month
+    var StartMonthHighstDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0).getDate();
+    var EndMonthHighstDate = new Date(endDate.getFullYear(), endDate.getMonth() + 1, 0).getDate();
+
+    var monthPlusDays;
+    if (startDate < endDate) {
+        monthPlusDays = (StartMonthHighstDate - startDateOfMonth) + (EndMonthHighstDate - (EndMonthHighstDate - endDateOfMonth));
+    } else if (startDate > endDate) {
+        monthPlusDays = (StartMonthHighstDate - (StartMonthHighstDate - startDateOfMonth)) + (EndMonthHighstDate - endDateOfMonth);
+    } else {
+        monthPlusDays = 0;
+    }
+
+    const miliSecond = timeInMS;
+    const second = miliSecond / 1000;
+    const minute = second / 60;
+    const hour = minute / 60;
+    const day = hour / 24;
+    const week = Math.floor(day / 7);
+    const weekPlusDays = day % 7;
+    const month = Math.floor(day / 30.4375);
+    const monthplusMonth = Math.floor(month % 12);
+    const year = Math.floor(day / 365.25);
+
+    units.innerHTML = `<div class='year'>${year} Years, ${monthplusMonth} Month, ${monthPlusDays} Days</div><div class='ms'>${miliSecond} MiliSecond</div><div class='second'>${second} Second</div><div class='minute'>${minute} Minutes</div><div class='hour'>${hour} Hours</div><div class='day'>${day} Days</div><div class='week'>${week} Weeks ${weekPlusDays} Days </div><div class='month'>${month} Month ${monthPlusDays} Days</div>`;
+}
+
+
+function bothDate(startDate, endDate) {
+
+    var startDate = new Date(startDate);
+    var startDay = startDate.getDay()
+    var startDateOfMonth = startDate.getDate()
+    var startMonth = startDate.getMonth()
+    var startYear = startDate.getFullYear()
+
+    var endDate = new Date(endDate);
+    var endDay = endDate.getDay()
+    var endDateOfMonth = endDate.getDate()
+    var endMonth = endDate.getMonth()
+    var endYear = endDate.getFullYear()
+
+    var startDateOfMonth = (startDateOfMonth < 10) ? '0' + startDateOfMonth : startDateOfMonth;
+
+    switch (startDay) {
+        case 0:
+            startDay = "Sunday"
+            break;
+        case 1:
+            startDay = "Monday";
+            break;
+        case 2:
+            startDay = "Tuesday";
+            break;
+        case 3:
+            startDay = "Wednesday";
+            break;
+        case 4:
+            startDay = "Thursday";
+            break;
+        case 5:
+            startDay = "Friday";
+            break;
+        case 6:
+            startDay = "Saturday";
+    }
+
+    switch (startMonth) {
+        case 0:
+            startMonth = "January"
+            break;
+        case 1:
+            startMonth = "February"
+            break;
+        case 2:
+            startMonth = "March"
+            break;
+        case 3:
+            startMonth = "April"
+            break;
+        case 4:
+            startMonth = "May"
+            break;
+        case 5:
+            startMonth = "June"
+            break;
+        case 6:
+            startMonth = "July"
+            break;
+        case 7:
+            startMonth = "August"
+            break;
+        case 8:
+            startMonth = "September"
+            break;
+        case 9:
+            startMonth = "October"
+            break;
+        case 10:
+            startMonth = "November"
+            break;
+        case 11:
+            startMonth = "December"
+            break;
+    }
+
+
+    var endDateOfMonth = (endDateOfMonth < 10) ? '0' + endDateOfMonth : endDateOfMonth;
+
+    switch (endDay) {
+        case 0:
+            endDay = "Sunday"
+            break;
+        case 1:
+            endDay = "Monday";
+            break;
+        case 2:
+            endDay = "Tuesday";
+            break;
+        case 3:
+            endDay = "Wednesday";
+            break;
+        case 4:
+            endDay = "Thursday";
+            break;
+        case 5:
+            endDay = "Friday";
+            break;
+        case 6:
+            endDay = "Saturday";
+    }
+
+    switch (endMonth) {
+        case 0:
+            endMonth = "January"
+            break;
+        case 1:
+            endMonth = "February"
+            break;
+        case 2:
+            endMonth = "March"
+            break;
+        case 3:
+            endMonth = "April"
+            break;
+        case 4:
+            endMonth = "May"
+            break;
+        case 5:
+            endMonth = "June"
+            break;
+        case 6:
+            endMonth = "July"
+            break;
+        case 7:
+            endMonth = "August"
+            break;
+        case 8:
+            endMonth = "September"
+            break;
+        case 9:
+            endMonth = "October"
+            break;
+        case 10:
+            endMonth = "November"
+            break;
+        case 11:
+            endMonth = "December"
+            break;
+    }
+
+    dates.innerHTML = `<div class='starting-date'>${startDay}, ${startDateOfMonth} ${startMonth} ${startYear}</div><div class='to'>To</div><div class='ending-date'>${endDay}, ${endDateOfMonth} ${endMonth} ${endYear}</div>`;
+
+}
